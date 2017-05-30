@@ -52,15 +52,15 @@ namespace ls {
 	        delete m_tail;
 		}
 
-		// list( const list & other)
-		// 	: m_size(0)
-		//     , m_head( new Node() )
-		//     , m_tail( new Node() )
-		// {
-		// 	for( auto it(other.begin()); it != begin(); ++it)
-	 // 	    	push_back(*it); //TODO: it retorna data do nó
-		// }
-		// 
+		list( const list & other)
+			: m_size(0)
+		    , m_head( new Node() )
+		    , m_tail( new Node() )
+		{
+			for( auto it(other.begin()); it != begin(); ++it)
+	 	    	push_back(*it); //TODO: it retorna data do nó
+		}
+		
 		list( list && other)
 		{
 			// "movimentar" dados de other

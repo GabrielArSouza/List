@@ -47,46 +47,61 @@ namespace ls {
 
 		~list( )
 		{
-			//clear(); //Apaga os outros nos da lista
+			clear(); //Apaga os outros nos da lista
 	        delete m_head;
 	        delete m_tail;
 		}
 
 		// list( const list & other)
-		// 	   : m_size(0)
+		// 	: m_size(0)
 		//     , m_head( new Node() )
 		//     , m_tail( new Node() )
 		// {
 		// 	for( auto it(other.begin()); it != begin(); ++it)
-	 	//     	push_back(*it); //TODO: it retorna data do nó
+	 // 	    	push_back(*it); //TODO: it retorna data do nó
 		// }
 		// 
-		// list( list && );
+		list( list && other)
+		{
+			// "movimentar" dados de other
+			m_size = other.m_size;
+			m_head = new Node;
+		    m_tail = other.m_tail;
+		    m_head->next = other.m_head->next;
+		    
+		    // mudar other
+		    other.m_tail = new Node;
+		    other.m_head->next = other.m_tail;
+		    other.m_tail->prev = other.m_head;
+		    other.m_size = 0;
+		}
 		// 
-		list & operator= ( const list & );
+		// list & operator= ( const list & );
 		// list & operator= ( List && );
-		// iterator begin( );
-		// const_iterator cbegin( ) const;
-		// iterator end( );
-		// const_iterator cend( ) const;
-		// int size( ) const;
-		// bool empty( ) const;
-		// void clear( );
-		// T & front( );
-		// const T & front( ) const;
-		// T & back( );
-		// const T & back( ) const;
-		// void push_front( const T & value );
-		// void push_back( const T & value );
-		// void pop_front( );
-		// void pop_back( );
+		
+		iterator begin( );
+		const_iterator cbegin( ) const;
+		iterator end( );
+		const_iterator cend( ) const;
+
+		int size( ) const;
+		bool empty( ) const;
+		void clear( );
+		T & front( );
+		const T & front( ) const;
+		T & back( );
+		const T & back( ) const;
+		void push_front( const T & value );
+		void push_back( const T & value );
+		void pop_front( );
+		void pop_back( );
 		// void assign(const T& value );
 		// template < class InItr >
 		// void assign( InItr first, InItr last );
 		// void assign( std::initializer_list<T> ilist );
-		// iterator insert( const_iterator itr, const T & value );
-		// iterator insert( const_iterator pos, std::initializer_list<T> ilist );
-		// iterator erase( const_iterator itr );
+		iterator insert( const_iterator itr, const T & value );
+		//iterator insert( const_iterator pos, std::initializer_list<T> ilist );
+		iterator erase( const_iterator itr );
 		// iterator erase( const_iterator first, const_iterator last );
 		// const_iterator find( const T & value ) const;
 

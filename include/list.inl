@@ -299,12 +299,10 @@ typename ls::list<T>::iterator ls::list<T>::insert
 
 }
 
-
 template <typename T>
 typename ls::list<T>::iterator
 ls::list<T>::erase( const_iterator itr )
 {
-
 	if (itr.current != m_tail)
 	{
 		auto before( (itr.current)->prev ); //anterior ao removido
@@ -322,4 +320,45 @@ ls::list<T>::erase( const_iterator itr )
 	return iterator( itr.current );
 	
 }
+
+template <typename T>
+typename ls::list<T>::iterator
+ls::list<T>::erase( const_iterator first, const_iterator last )
+{
+	
+	while( first != last )
+	{
+		auto aux = first;
+		first.current = (first.current)->next;
+
+		auto before( (aux.current)->prev ); //anterior ao removido
+		auto after( (aux.current)->next ); //posterior ao rmeovido
+		
+		//Avança para poder excluir o no
+		before->next = after;
+		after->prev = before;
+		m_size--;
+
+		delete aux.current;	
+	}
+
+	return iterator( first.current );
+}
+
+template <typename T>
+typename ls::list<T>::const_iterator 
+ls::list<T>::find( const T & value ) const
+{
+	auto curr = m_head;
+	while ( curr->next != m_tail )
+	{
+		curr = curr->next;
+		if( curr->data == value )
+			return const_iterator( curr );
+	}
+
+	return const_iterator( m_tail );
+}
+
+
 

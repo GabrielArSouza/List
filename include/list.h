@@ -167,8 +167,8 @@ namespace ls {
 		iterator insert( const_iterator itr, const T & value );
 		iterator insert( const_iterator pos, std::initializer_list<T> ilist );
 		iterator erase( const_iterator itr );
-		// iterator erase( const_iterator first, const_iterator last );
-		// const_iterator find( const T & value ) const;
+		iterator erase( const_iterator first, const_iterator last );
+		const_iterator find( const T & value ) const;
 
 	};
 

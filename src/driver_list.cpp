@@ -170,11 +170,74 @@ int main ()
 		std::cout << ">> Depois: - Size: " << a.size() << " ";
 		print(a);
 
-		std::cout << ">> FIM (INSERT)\n";
+		std::cout << ">> FIM (INSERT)\n\n";
 
 	}
 
+	//erase
+	{
+		std::cout << ">> TESTE ERASE\n";
+		
+		//eraase no meio
+		ls::list<int> aa {1, 2, 3, 4, 5, 6, 7 };
+		auto tt = aa.begin();
+		for (auto i(0); i < 4; ++i ) ++tt;
+		std::cout << ">> Antes: - Size: " << aa.size() << " ";
+		print(aa);
+		aa.erase( tt );
+		std::cout << ">> Depois: - Size: " << aa.size() << " ";
+		print(aa);
+
+		//<! remover do inicio
+		ls::list<int> a {1, 2, 3, 4, 5, 6, 7 };
+		ls::list<int>::const_iterator it1 = a.begin();
+		auto t = a.begin();
+		for ( auto i(0); i < 3; ++i ) ++t;
+		ls::list<int>::const_iterator it2 = t;
+
+		std::cout << ">> Antes: - Size: " << a.size() << " ";
+		print(a);
+		a.erase( it1, it2);
+		std::cout << ">> Depois: - Size: " << a.size() << " ";
+		print(a);
+
+		// remover do meio
+		ls::list<int> b {1, 2, 3, 4, 5, 6, 7 };
+		auto it3 = it2;
+		for ( auto i(0); i < 2; ++i ) ++it2;
+		std::cout << ">> Antes: - Size: " << b.size() << " ";
+		print(b);
+		b.erase( it3, it2);
+		std::cout << ">> Depois: - Size: " << b.size() << " ";
+		print(b);
+
+		//remover do final
+		// ls::list<int> c {1, 2, 3, 4, 5, 6, 7 };
+		// auto it4 = it2;
+		// auto it5 = c.end();
+		// std::cout << ">> Antes: - Size: " << c.size() << " ";
+		// print(c);
+		// c.erase( it4, it5 );
+		// std::cout << ">> Depois: - Size: " << c.size() << " ";
+		// print(c);
 	
+		std::cout << ">> FIM (ERASE)\n\n";
+	}
+
+	//find
+	{
+		ls::list<int> a {1, 2, 3, 4, 5, 6, 7 };
+		//procurando no inicio
+		assert(a.find( 1 ) == a.begin() );
+		//procurando no meio
+		auto t = a.begin();
+		for (auto i(0); i < 3; ++i ) ++t;
+		assert(a.find( 4 ) == t );
+		//procurando no final
+		assert(*(a.find( 7 )) == 7 );
+		//procurando elemento que não existe		
+		assert(a.find( 12 ) == (a.end())++ );
+	}
 	
 	std::cout << ">>> PASSOU EM TODOS OS TESTES\n";
 	return 0;

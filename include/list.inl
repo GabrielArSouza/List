@@ -209,13 +209,60 @@ void ls::list<T>::push_back
 template <typename T>
 void ls::list<T>::pop_front( )
 {
-	erase(begin());
+	erase(cbegin());
 }
 
 template <typename T>
 void ls::list<T>::pop_back( )
 {
-	erase(end());
+	auto it = end();
+	erase(--it);
+}
+
+template <typename T>
+void ls::list<T>::assign(const T& value )
+{
+	auto current = m_head;
+	while ( current->next != m_tail )
+	{
+		current = current->next;
+		current->data = value;
+	}
+}
+
+template <typename T>
+template <class InItr>
+void ls::list<T>::assign( InItr first, InItr last )
+{
+	auto current = m_head;
+	auto fixed = first;
+
+	while ( current->next != m_tail )
+	{
+		if ( first == last ) first = fixed;
+		current = current->next;
+		current->data = *first; 
+
+		first++;
+	}
+}
+
+template <typename T>
+void ls::list<T>::assign( std::initializer_list<T> ilist )
+{
+	auto current = m_head;
+	auto fixed = ilist.begin();
+	auto _nfixed = ilist.begin();
+
+	while ( current->next != m_tail )
+	{
+		if ( _nfixed == ilist.end() ) _nfixed = fixed;
+		current = current->next;
+		current->data = *_nfixed;
+
+		_nfixed++;
+
+	}
 }
 
 template <typename T>
@@ -229,31 +276,50 @@ ls::list<T>::insert( const_iterator itr, const T & value )
 	//<! next do novo nó igual a itr
 	new_node->next = itr.current;
 	//<! prev do novo nó recebe prev do itr
-	new_node->prev = itr->prev;
+	new_node->prev = (itr.current)->prev;
 	//<! anterior a itr aponta para novo nó
-	(itr->prev)->next = new_node;
+	((itr.current)->prev)->next = new_node;
 	//<! itr aponta para novo nó
-	itr->prev = new_node;
+	(itr.current)->prev = new_node;
 
 	return iterator(new_node);
 }
 
 template <typename T>
+typename ls::list<T>::iterator ls::list<T>::insert
+( const_iterator pos, std::initializer_list<T> ilist )
+{
+	for (auto i = ilist.begin(); i != ilist.end(); ++i )
+	{
+		insert(pos, *i );
+	}
+
+	return iterator(pos.current);
+	
+
+}
+
+
+template <typename T>
 typename ls::list<T>::iterator
 ls::list<T>::erase( const_iterator itr )
 {
-	//<! Se itr no fim, pare
-	if ( itr == end() ) return iterator(itr);
 
-	auto before( itr->prev ); //anterior ao removido
-	auto after( itr->next ); //posterior ao rmeovido
+	if (itr.current != m_tail)
+	{
+		auto before( (itr.current)->prev ); //anterior ao removido
+		auto after( (itr.current)->next ); //posterior ao rmeovido
+		
+		//Avança para poder excluir o no
+		before->next = after;
+		after->prev = before;
+		m_size--;
+
+		delete itr.current;	
+		return iterator( (itr.current)->next);
+	}
+
+	return iterator( itr.current );
 	
-	//Avança para poder excluit o no
-	before->next = after;
-	after->prev = before;
-
-	delete itr.current;
-	return iterator();
 }
-
 

@@ -45,22 +45,51 @@ namespace ls {
 			m_tail->prev = m_head;
 		}
 
-		~list( )
+		template< typename InputIt >
+		list( InputIt first, InputIt last )
 		{
-			clear(); //Apaga os outros nos da lista
-	        delete m_head;
-	        delete m_tail;
+			//<! cria lista
+			m_size = 0;
+			m_head = new Node;
+			m_tail = new Node;
+			m_head->next = m_tail;
+			m_tail->prev = m_head;
+
+			//<! copia conteúdo
+			for ( /*empty*/; first != last; ++first )
+				push_back(*first);
+
 		}
 
 		list( const list & other)
-			: m_size(0)
-		    , m_head( new Node() )
-		    , m_tail( new Node() )
 		{
-			for( auto it(other.begin()); it != begin(); ++it)
-	 	    	push_back(*it); //TODO: it retorna data do nó
+			//<! cria lista
+			m_size = 0;
+			m_head = new Node;
+			m_tail = new Node;
+			m_head->next = m_tail;
+			m_tail->prev = m_head;
+
+			//<! copia conteúdo
+			for( auto i(other.cbegin()); i != other.cend(); ++i)
+	 	    	push_back(*i);
 		}
-		
+
+		list( std::initializer_list<T> ilist )
+		{
+			//<! cria lista
+			m_size = 0;
+			m_head = new Node;
+			m_tail = new Node;
+			m_head->next = m_tail;
+			m_tail->prev = m_head;
+
+			//<! copia conteúdo
+			for ( auto i = ilist.begin(); i != ilist.end(); ++i )
+				push_back(*i);
+
+		}
+
 		list( list && other)
 		{
 			// "movimentar" dados de other
@@ -75,9 +104,45 @@ namespace ls {
 		    other.m_tail->prev = other.m_head;
 		    other.m_size = 0;
 		}
-		// 
-		// list & operator= ( const list & );
-		// list & operator= ( List && );
+
+		~list( )
+		{
+			clear(); //Apaga os outros nós da lista
+	        delete m_head;
+	        delete m_tail;
+		}		
+		 
+		list & operator= ( const list & copy )
+		{	
+			//<! cria nova lista 
+			m_size = 0;
+			m_head = new Node;
+			m_tail = new Node;
+			m_head->next = m_tail;
+			m_tail->prev = m_head;
+
+			//<! copia o conteúdo
+			for ( auto i = copy.cbegin(); i != copy.cend(); ++i )
+				push_back(*i);
+
+			return *this;
+		}
+		
+		list& operator=( std::initializer_list<T> ilist )
+		{
+			//<! cria nova lista
+			m_size = 0;
+			m_head = new Node;
+			m_tail = new Node;
+			m_head->next = m_tail;
+			m_tail->prev = m_head;
+
+			//<! copia conteúdo
+			for ( auto i = ilist.begin(); i < ilist.end(); ++i)
+				push_back(*i);
+
+			return *this;
+		}
 		
 		iterator begin( );
 		const_iterator cbegin( ) const;
@@ -95,12 +160,12 @@ namespace ls {
 		void push_back( const T & value );
 		void pop_front( );
 		void pop_back( );
-		// void assign(const T& value );
-		// template < class InItr >
-		// void assign( InItr first, InItr last );
-		// void assign( std::initializer_list<T> ilist );
+		void assign(const T& value );
+		template < class InItr >
+		void assign( InItr first, InItr last );
+		void assign( std::initializer_list<T> ilist );
 		iterator insert( const_iterator itr, const T & value );
-		//iterator insert( const_iterator pos, std::initializer_list<T> ilist );
+		iterator insert( const_iterator pos, std::initializer_list<T> ilist );
 		iterator erase( const_iterator itr );
 		// iterator erase( const_iterator first, const_iterator last );
 		// const_iterator find( const T & value ) const;

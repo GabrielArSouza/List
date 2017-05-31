@@ -190,10 +190,10 @@ int main ()
 
 		//<! remover do inicio
 		ls::list<int> a {1, 2, 3, 4, 5, 6, 7 };
-		ls::list<int>::const_iterator it1 = a.begin();
+		ls::list<int>::iterator it1 = a.begin();
 		auto t = a.begin();
 		for ( auto i(0); i < 3; ++i ) ++t;
-		ls::list<int>::const_iterator it2 = t;
+		ls::list<int>::iterator it2 = t;
 
 		std::cout << ">> Antes: - Size: " << a.size() << " ";
 		print(a);
@@ -203,23 +203,26 @@ int main ()
 
 		// remover do meio
 		ls::list<int> b {1, 2, 3, 4, 5, 6, 7 };
-		auto it3 = it2;
-		for ( auto i(0); i < 2; ++i ) ++it2;
+		auto it3 = b.begin();
+		auto it4 = b.begin();
+		for ( auto i(0); i < 2; ++i ) ++it3;
+		for ( auto i(0); i < 4; ++i ) ++it4;
 		std::cout << ">> Antes: - Size: " << b.size() << " ";
 		print(b);
-		b.erase( it3, it2);
+		b.erase( it3, it4);
 		std::cout << ">> Depois: - Size: " << b.size() << " ";
 		print(b);
 
 		//remover do final
-		// ls::list<int> c {1, 2, 3, 4, 5, 6, 7 };
-		// auto it4 = it2;
-		// auto it5 = c.end();
-		// std::cout << ">> Antes: - Size: " << c.size() << " ";
-		// print(c);
-		// c.erase( it4, it5 );
-		// std::cout << ">> Depois: - Size: " << c.size() << " ";
-		// print(c);
+		ls::list<int> c {1, 2, 3, 4, 5, 6, 7 };
+		auto it5 = c.begin();
+		auto it6 = c.end();
+		for ( auto i(0); i < 4; ++i ) ++it5;
+				std::cout << ">> Antes: - Size: " << c.size() << " ";
+		print(c);
+		c.erase( it5, it6 );
+		std::cout << ">> Depois: - Size: " << c.size() << " ";
+		print(c);
 	
 		std::cout << ">> FIM (ERASE)\n\n";
 	}

@@ -323,26 +323,17 @@ ls::list<T>::erase( const_iterator itr )
 
 template <typename T>
 typename ls::list<T>::iterator
-ls::list<T>::erase( const_iterator first, const_iterator last )
+ls::list<T>::erase( iterator first, iterator last )
 {
-	
-	while( first != last )
+
+	if ( empty() ) return ( first.current);
+	while ( first != last )
 	{
-		auto aux = first;
-		first.current = (first.current)->next;
-
-		auto before( (aux.current)->prev ); //anterior ao removido
-		auto after( (aux.current)->next ); //posterior ao rmeovido
-		
-		//Avança para poder excluir o no
-		before->next = after;
-		after->prev = before;
-		m_size--;
-
-		delete aux.current;	
+		first++;
+		erase( first.current->prev);
 	}
 
-	return iterator( first.current );
+	return last;
 }
 
 template <typename T>

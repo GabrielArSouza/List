@@ -1,5 +1,14 @@
+/**
+ * @file list.inl
+ * @author Gabriel Araújo de Souza
+ * @date 02 Jun 2017
+ * @brief Arquivo contendo as implementações das classes list
+ *        const_iterator e iterator.
+ */
+
 // [I] const iterator
 
+//<! Retorna o valor do nó apontado.
 template <typename T>
 const T
 & ls::list<T>::const_iterator::operator* ( ) const
@@ -8,6 +17,7 @@ const T
 	return current->data;
 }
 
+//<! Avança o iterador.
 template <typename T>
 typename ls::list<T>::const_iterator
 & ls::list<T>::const_iterator::operator++ ( ) // ++it;
@@ -16,6 +26,7 @@ typename ls::list<T>::const_iterator
 	return *this;
 }
 
+//<! Avança o iterador
 template <typename T>
 typename ls::list<T>::const_iterator
 ls::list<T>::const_iterator::operator++ ( int ) // it++;
@@ -25,6 +36,7 @@ ls::list<T>::const_iterator::operator++ ( int ) // it++;
 	return temp;
 }
 
+//<! Iterador vai para o nó anterior
 template <typename T>
 typename ls::list<T>::const_iterator
 & ls::list<T>::const_iterator::operator-- ( ) // --it;
@@ -33,6 +45,7 @@ typename ls::list<T>::const_iterator
 	return *this;
 }
 
+//<! Iterador vai para o nó anterior
 template <typename T>
 typename ls::list<T>::const_iterator
 ls::list<T>::const_iterator::operator-- ( int ) // it--;
@@ -42,6 +55,7 @@ ls::list<T>::const_iterator::operator-- ( int ) // it--;
 	return temp;
 }
 
+//<! Compara se dois iteradores são iguais
 template <typename T>
 bool ls::list<T>::const_iterator::operator==
 ( const const_iterator & rhs ) const
@@ -49,6 +63,7 @@ bool ls::list<T>::const_iterator::operator==
 	return current == rhs.current;
 }
 
+//<! Compara se dois iteradores são diferentes
 template <typename T>
 bool ls::list<T>::const_iterator::operator!=
 ( const const_iterator & rhs ) const
@@ -57,6 +72,8 @@ bool ls::list<T>::const_iterator::operator!=
 }
 
 //[II] iterator
+
+//<! Retorna o valor constante apontado pelo iterador
 template <typename T>
 const T & ls::list<T>::iterator::operator* ( ) const
 {
@@ -64,6 +81,7 @@ const T & ls::list<T>::iterator::operator* ( ) const
 	return const_iterator::current->data;
 }
 
+//<! Retorna o valor apontado pelo iterador
 template <typename T>
 T & ls::list<T>::iterator::operator* ( )
 {
@@ -71,6 +89,7 @@ T & ls::list<T>::iterator::operator* ( )
 	return const_iterator::current->data;
 }
 
+//<! Avança o iterador para a próxima posição
 template <typename T>
 typename ls::list<T>::iterator
 & ls::list<T>::iterator::operator++ ( )
@@ -79,6 +98,7 @@ typename ls::list<T>::iterator
     return *this;
 }
 
+//<! Avança o iterador para a próxima posição
 template <typename T>
 typename ls::list<T>::iterator
 ls::list<T>::iterator::operator++ ( int )
@@ -89,6 +109,7 @@ ls::list<T>::iterator::operator++ ( int )
 
 }
 
+//<! O iterador vai para a posição anterior
 template <typename T>
 typename ls::list<T>::iterator
 & ls::list<T>::iterator::operator--( )
@@ -97,6 +118,7 @@ typename ls::list<T>::iterator
 	return *this;
 }
 
+//<! O iterador vai para a posição anterior
 template <typename T>
 typename ls::list<T>::iterator 
 ls::list<T>::iterator::operator--( int )
@@ -107,6 +129,8 @@ ls::list<T>::iterator::operator--( int )
 }
 
 // [III] list
+
+//<! Retorna iterador para o primeiro nó da lista
 template <typename T>
 typename ls::list<T>::iterator
 ls::list<T>::begin( )
@@ -114,6 +138,7 @@ ls::list<T>::begin( )
 	return iterator(m_head->next);
 }
 
+//<! Retorna iterador constante para o primeiro nó da lista
 template <typename T>
 typename ls::list<T>::const_iterator
 ls::list<T>::cbegin( ) const
@@ -121,6 +146,7 @@ ls::list<T>::cbegin( ) const
 	return const_iterator(m_head->next);
 }
 
+//<! Retorna iterador para a posição logo após o último nó
 template <typename T>
 typename ls::list<T>::iterator
 ls::list<T>::end( )
@@ -128,6 +154,7 @@ ls::list<T>::end( )
 	return iterator(m_tail);
 }
 
+//<! Retorna iterador constante para a posição logo após o último nó
 template <typename T>
 typename ls::list<T>::const_iterator
 ls::list<T>::cend( ) const
@@ -135,18 +162,21 @@ ls::list<T>::cend( ) const
 	return const_iterator(m_tail);
 }
 
+//<! Retorna o tamanho da lista
 template <typename T>
 int ls::list<T>::size( ) const
 {
 	return m_size;
 }
 
+//<! Verifica se a lista está vazia
 template <typename T>
 bool ls::list<T>::empty( ) const
 {
 	return m_size == 0;
 }
 
+//<! Apaga a lista
 template <typename T>
 void ls::list<T>::clear( )
 {
@@ -164,6 +194,7 @@ void ls::list<T>::clear( )
 	m_tail->prev = m_head;
 }
 
+//<! Retorna o valor do primeiro nó
 template <typename T>
 T & ls::list<T>::front( )
 {
@@ -171,6 +202,7 @@ T & ls::list<T>::front( )
 	return aux->data;
 }
 
+//<! Retorna o valor constante do primeiro nó
 template <typename T>
 const T & ls::list<T>::front( ) const
 {
@@ -178,6 +210,7 @@ const T & ls::list<T>::front( ) const
 	return aux->data;
 }
 
+//<! Retorna o valor do último nó da lista
 template <typename T>
 T & ls::list<T>::back( )
 {
@@ -185,6 +218,7 @@ T & ls::list<T>::back( )
 	return aux->data;
 }
 
+//<! Retorna o valor constante do último nó da lista
 template <typename T>
 const T & ls::list<T>::back( ) const
 {
@@ -192,6 +226,7 @@ const T & ls::list<T>::back( ) const
 	return aux->data;
 }
 
+//<! Insere valor no inicio da lista
 template <typename T>
 void ls::list<T>::push_front
 ( const T & value )
@@ -199,6 +234,7 @@ void ls::list<T>::push_front
 	insert(begin(), value);
 }
 
+//<! Insere valor no final da lista
 template <typename T>
 void ls::list<T>::push_back
 ( const T & value )
@@ -206,12 +242,14 @@ void ls::list<T>::push_back
 	insert(end(), value);
 }
 
+//<! Remove valor do inicio da lista
 template <typename T>
 void ls::list<T>::pop_front( )
 {
 	erase(cbegin());
 }
 
+//<! Remove valor do final da lista
 template <typename T>
 void ls::list<T>::pop_back( )
 {
@@ -219,6 +257,7 @@ void ls::list<T>::pop_back( )
 	erase(--it);
 }
 
+//<! Atribui um valor para a lista toda
 template <typename T>
 void ls::list<T>::assign(const T& value )
 {
@@ -230,6 +269,7 @@ void ls::list<T>::assign(const T& value )
 	}
 }
 
+//<! Atribui valores do intervalo a uma lista
 template <typename T>
 template <class InItr>
 void ls::list<T>::assign( InItr first, InItr last )
@@ -247,6 +287,7 @@ void ls::list<T>::assign( InItr first, InItr last )
 	}
 }
 
+//<! Atribui valores de uma lista fornecida para a lista
 template <typename T>
 void ls::list<T>::assign( std::initializer_list<T> ilist )
 {
@@ -265,6 +306,7 @@ void ls::list<T>::assign( std::initializer_list<T> ilist )
 	}
 }
 
+//<! Insere valor uma posição antes do iterador 
 template <typename T>
 typename ls::list<T>::iterator
 ls::list<T>::insert( const_iterator itr, const T & value )
@@ -285,6 +327,7 @@ ls::list<T>::insert( const_iterator itr, const T & value )
 	return iterator(new_node);
 }
 
+//<! Insere valores de uma lista, uma posição antes da fornecida
 template <typename T>
 typename ls::list<T>::iterator ls::list<T>::insert
 ( const_iterator pos, std::initializer_list<T> ilist )
@@ -299,6 +342,7 @@ typename ls::list<T>::iterator ls::list<T>::insert
 
 }
 
+//<! Apaga um nó
 template <typename T>
 typename ls::list<T>::iterator
 ls::list<T>::erase( const_iterator itr )
@@ -321,6 +365,7 @@ ls::list<T>::erase( const_iterator itr )
 	
 }
 
+//<! Apaga um intervalo da lista
 template <typename T>
 typename ls::list<T>::iterator
 ls::list<T>::erase( iterator first, iterator last )
@@ -336,6 +381,7 @@ ls::list<T>::erase( iterator first, iterator last )
 	return last;
 }
 
+//<! Procura elementos na lista
 template <typename T>
 typename ls::list<T>::const_iterator 
 ls::list<T>::find( const T & value ) const

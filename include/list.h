@@ -1,5 +1,5 @@
 /**
- * @file vector.h
+ * @file list.h
  * @author Gabriel Araújo de Souza
  * @date 02 Jun 2017
  * @brief Arquivo contendo as definições das classes list

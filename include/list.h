@@ -44,7 +44,7 @@ namespace ls {
 				: data( d ), prev(p), next( n ) { /* Empty */ }
 		};
 
-	/private:
+	private:
 
 		int m_size;   //<! Quantidade de nós da lista.
 		Node *m_head; //<! Nó para o início da lista.
@@ -392,6 +392,11 @@ namespace ls {
 
 	};
 
+	/**
+	 * @brief      Classe const_iterator para a classe list.
+	 *
+	 * @tparam     T     Tipo dos dados.
+	 */
 	template <typename T>
 	class list<T>::const_iterator {
 
@@ -401,19 +406,71 @@ namespace ls {
 		 	friend class list<T>;
 
 		public:
-
+			/**
+			 * @brief      Construtor básico.
+			 */
 		 	const_iterator( ){ /*empty*/ }
 
+		 	/**
+		 	 * @brief      Operador '*'.
+		 	 *
+		 	 * @return     O valor do nó apontado apontado pelo iterador.
+		 	 */
 		 	const T & operator* ( ) const;
-		 	const_iterator & operator++ ( ); // ++it;
-		 	const_iterator operator++ ( int ); // it++;
-		 	const_iterator & operator-- ( ); // --it;
-		 	const_iterator operator-- ( int ); // it--;
+
+		 	/**
+		 	 * @brief      Operador '++', equivalente à ++it. 
+		 	 *
+		 	 * @return     Iterador para o próximo nó.
+		 	 */
+		 	const_iterator & operator++ ( );
+		 	
+		 	/**
+		 	 * @brief      Operador '++', equivalente à it++. 
+		 	 *
+		 	 * @return     Iterador para o próximo nó.
+		 	 */
+		 	const_iterator operator++ ( int );
+
+		 	/**
+		 	 * @brief      Operador '--', equivalente à --it. 
+		 	 *
+		 	 * @return     Iterador para a posição anterior.
+		 	 */
+		 	const_iterator & operator-- ( );
+
+		 	/**
+		 	 * @brief      Operador '--', equivalente à it--. 
+		 	 *
+		 	 * @return     Iterador para a posição anterior.
+		 	 */
+		 	const_iterator operator-- ( int );
+
+		 	/**
+		 	 * @brief      Verifica se dois iteradores são iguais.
+		 	 *
+		 	 * @param[in]  rhs  Iterador para se comparar.
+		 	 *
+		 	 * @return     True se iguais, False caso constrário.
+		 	 */
 		 	bool operator== ( const const_iterator & rhs ) const;
+
+		 	/**
+		 	 * @brief      Verifica se dois iteradores são diferentes.
+		 	 *
+		 	 * @param[in]  rhs  Iterador para se comparar.
+		 	 *
+		 	 * @return     True se iguais, False caso constrário.
+		 	 */
 		 	bool operator!= ( const const_iterator & rhs ) const;
 		
 	};
 
+	/**
+	 * @brief      Classe iterator para o list.
+	 *
+	 * @tparam     T     Tipo do iterador.
+	 */
 	template <typename T>
 	class list<T>::iterator : public list<T>::const_iterator {
 
@@ -423,13 +480,51 @@ namespace ls {
 
 		public:
 
+			/**
+			 * @brief      Construtor básico.
+			 */
 			iterator( ) : const_iterator() { /* Empty */ }
+			
+			/**
+			 * @brief      Operador '*'.
+			 *
+			 * @return     O valor constante armazenado no nó apontado
+			 */
 			const T & operator* ( ) const;
+
+			/**
+			 * @brief      Operador '*'.
+			 *
+			 * @return     O valor armazenado no nó apontado.
+			 */
 			T & operator* ( );
 
+			/**
+			 * @brief      Operador '++', equivalente a ++it.
+			 *
+			 * @return     O iterado para o próximo nó.
+			 */
 			iterator & operator++ ( );
+
+			/**
+			 * @brief      Operador '++', equivalente a it++.
+			 *
+			 * @return     O iterado para o próximo nó.
+			 */
 			iterator operator++ ( int );
+
+			/**
+			 * @brief      Operador '--', equivalente a --it.
+			 *
+			 * @return     O iterado para o nó anterior.
+			 */
 			iterator & operator--( );
+
+			/**
+			 * @brief      Operador '--', equivalente a it--.
+			 *
+			 * @return     O iterado para o nó anterior.
+			 */
 			iterator operator--( int );
 
 	};
